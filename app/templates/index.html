@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Inicio | EBB</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <div class="navbar">
+    <div>EBB</div>
+    <div>
+      <a href="{{ url_for('main.login') }}">Login</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <h1>Bienvenido a Epic Extract Bill</h1>
+    <p>Automatiza la extracción de datos desde tus facturas.</p>
+  </div>
+</body>
+</html>

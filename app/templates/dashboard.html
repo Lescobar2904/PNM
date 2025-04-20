@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard | EBB</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <div class="navbar">
+    <div>EBB</div>
+    <div>
+      <a href="{{ url_for('main.upload') }}">Subir</a>
+      <a href="{{ url_for('main.profile') }}">Perfil</a>
+      <a href="{{ url_for('main.index') }}">Salir</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <h2>Empresas Registradas</h2>
+    <ul>
+      {% for id, empresa in empresas.items() %}
+        <li>
+          <strong>{{ empresa.nombre }}</strong> (RUT: {{ empresa.rut }})
+          <form method="get" action="{{ url_for('main.ver_empresa', empresa_id=id) }}" style="display:inline;">
+            <button type="submit">Ingresar</button>
+          </form>
+        </li>
+      {% endfor %}
+    </ul>
+
+    <hr>
+
+    <h3>Agregar nueva empresa</h3>
+    <form method="POST" action="{{ url_for('main.nueva_empresa') }}">
+      <input type="text" name="nombre" placeholder="Nombre de la empresa" required>
+      <input type="text" name="rut" placeholder="RUT" required>
+      <button type="submit">Agregar empresa</button>
+    </form>
+  </div>
+</body>
+</html>

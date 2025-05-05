@@ -10,15 +10,20 @@
     <div>EBB</div>
     <div>
       <a href="{{ url_for('main.dashboard') }}">Dashboard</a>
-      <a href="{{ url_for('main.upload') }}">Subir</a>
-      <a href="{{ url_for('main.index') }}">Salir</a>
+      <a href="{{ url_for('main.logout') }}">Cerrar sesión</a>
     </div>
   </div>
 
   <div class="container">
-    <h2>Mi Perfil</h2>
-    <p>Nombre: Lukas Escobar</p>
-    <p>Correo: prueba@gmail.com</p>
+    <h2>Perfil del Usuario</h2>
+
+    <p><strong>Nombre:</strong> {{ nombre }}</p>
+    <p><strong>Correo:</strong> {{ correo }}</p>
+
+    <br>
+    <a href="{{ url_for('main.dashboard') }}">
+      <button>Volver al Dashboard</button>
+    </a>
   </div>
 </body>
 </html>

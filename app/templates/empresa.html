@@ -9,7 +9,9 @@
   <div class="navbar">
     <div>EBB - {{ empresa.nombre }}</div>
     <div>
-      <a href="{{ url_for('main.dashboard') }}">Volver al Dashboard</a>
+      <a href="{{ url_for('main.dashboard') }}">Dashboard</a>
+      <a href="{{ url_for('main.profile') }}">Perfil</a>
+      <a href="{{ url_for('main.logout') }}">Salir</a>
     </div>
   </div>
 
@@ -19,10 +21,39 @@
 
     <hr>
 
-    <h3>Subir Factura</h3>
-    <form method="POST" enctype="multipart/form-data" action="{{ url_for('main.subir_factura_empresa', empresa_id=empresa_id) }}">
+    <h3>Facturas registradas</h3>
+    <ul>
+      {% for factura in empresa.facturas %}
+        <li>
+          {% if factura.nombre_manual %}
+            <strong>{{ factura.nombre_manual }}</strong> - {{ factura.fecha }} - ${{ factura.monto }}<br>
+            <em>{{ factura.descripcion }}</em>
+          {% else %}
+            {{ factura.archivo_nombre }}
+          {% endif %}
+        </li>
+      {% else %}
+        <li>No hay facturas registradas aún.</li>
+      {% endfor %}
+    </ul>
+
+    <hr>
+
+    <h3>Subir factura (archivo)</h3>
+    <form method="POST" enctype="multipart/form-data" action="{{ url_for('main.subir_factura_empresa', empresa_id=empresa.id) }}">
       <input type="file" name="factura_pdf" accept="application/pdf,image/*" required>
-      <button type="submit">Subir</button>
+      <button type="submit">Subir archivo</button>
+    </form>
+
+    <hr>
+
+    <h3>Agregar factura manualmente</h3>
+    <form method="POST" action="{{ url_for('main.agregar_factura_manual', empresa_id=empresa.id) }}">
+      <input type="text" name="nombre_manual" placeholder="Nombre del documento" required><br>
+      <input type="date" name="fecha" required><br>
+      <input type="number" step="0.01" name="monto" placeholder="Monto ($)" required><br>
+      <input type="text" name="descripcion" placeholder="Descripción (opcional)"><br>
+      <button type="submit">Agregar factura</button>
     </form>
   </div>
 </body>

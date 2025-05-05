@@ -9,7 +9,6 @@
   <div class="navbar">
     <div>EBB</div>
     <div>
-      <a href="{{ url_for('main.upload') }}">Subir</a>
       <a href="{{ url_for('main.profile') }}">Perfil</a>
       <a href="{{ url_for('main.index') }}">Salir</a>
     </div>
@@ -18,13 +17,15 @@
   <div class="container">
     <h2>Empresas Registradas</h2>
     <ul>
-      {% for id, empresa in empresas.items() %}
+      {% for empresa in empresas %}
         <li>
           <strong>{{ empresa.nombre }}</strong> (RUT: {{ empresa.rut }})
-          <form method="get" action="{{ url_for('main.ver_empresa', empresa_id=id) }}" style="display:inline;">
+          <form method="get" action="{{ url_for('main.ver_empresa', empresa_id=empresa.id) }}" style="display:inline;">
             <button type="submit">Ingresar</button>
           </form>
         </li>
+      {% else %}
+        <li>No hay empresas registradas aún.</li>
       {% endfor %}
     </ul>
 
